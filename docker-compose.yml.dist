@@ -1,0 +1,19 @@
+version: '3'
+services:
+  rss-to-activity-pub:
+    container_name: rss-to-activity-pub
+    restart: unless-stopped
+    image: rss-to-activity-pub
+    ports:
+      - "80:80"
+#      - "443:443"
+    environment:
+      - DOMAIN=mydomain.tld
+      - PORT_HTTP=80
+      - PORT_HTTPS=443
+#     - PRIVKEY_PATH=/app/privkey_path
+#     - CERT_PATH=/app/cert_path
+#    volumes:
+#      - ./data/privkey_path:/app/privkey_path    
+#      - ./data/cert_path:/app/cert_path
+#      - ./data/bot-node.db:/app/bot-node.db

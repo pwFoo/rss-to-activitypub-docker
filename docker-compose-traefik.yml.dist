@@ -1,0 +1,24 @@
+version: '3'
+services:
+  rss-to-activity-pub:
+    container_name: rss-to-activity-pub
+    restart: unless-stopped
+    image: rss-to-activity-pub
+    environment:
+      - DOMAIN=mydomain.tld
+    labels:
+      - "traefik.backend=rss-to-activity-pub"
+      - "traefik.docker.network=traefik-proxy"
+      - "traefik.frontend.redirect.entryPoint=https"
+      - "traefik.frontend.rule=Host:mydomain.tld"
+      - "traefik.enable=true"
+      - "traefik.port=3000"
+    networks:
+      - traefik-proxy
+#    volumes:
+#      - ./data/privkey_path:/app/privkey_path    
+#      - ./data/cert_path:/app/cert_path
+#      - ./data/bot-node.db:/app/bot-node.db
+networks:
+  traefik-proxy:
+    external: true
