@@ -68,5 +68,13 @@
     ```
     $ sudo docker-compose -f docker/docker-compose.yml up -d
     ```
-
-    
+    You should be able to access to your rss-to-activity-pub instance at your chosen domain adress.
+12. The last think you need to do is create a regular task to update the feeds :
+    ```
+    $ sudo crontab -e
+    ```
+    Select nano if a choice is asked. Add the following line :
+    ```
+    */10 * * * * docker exec rss-to-activity-pub /bin/sh -c "cd /app && node updateFeeds.js" >/dev/null 2>&1
+    ```
+    Your feeds will be updated every 10 minutes.
