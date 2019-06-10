@@ -2,6 +2,8 @@
 
 [rss-to-activity-pub](https://github.com/dariusk/rss-to-activitypub) dockerized
 
+## First time
+
 1. Clone the `rss-to-activity-pub` repository and move into it :
     ```shell
     $ git clone https://github.com/dariusk/rss-to-activitypub && cd rss-to-activitypub
@@ -69,7 +71,7 @@
     $ sudo docker-compose -f docker/docker-compose.yml up -d
     ```
     You should be able to access to your rss-to-activity-pub instance at your chosen domain adress.
-12. The last think you need to do is create a regular task to update the feeds :
+12. One of the last thing you need to do is create a regular task to update the feeds :
     ```
     $ sudo crontab -e
     ```
@@ -78,3 +80,10 @@
     */10 * * * * docker exec rss-to-activity-pub /bin/sh -c "cd /app && node updateFeeds.js" >/dev/null 2>&1
     ```
     Your feeds will be updated every 10 minutes.
+13. Also it is recommended to create at the root of rss-to-activity-pub directory a file named `.dockerignore` which contains `docker/data`. Without it, your db file would be included next time you build the image with an image significally heavier for nothing (db file is mounted from docker-compose.yml).
+
+# Update
+
+1. Go to you rss-to-activity-pub directory and then do `git pull` for getting the new version of code.
+2. Execute `sudo docker build -f docker/Dockerfile -t rss-to-activity-pub .` to build the new image using the newly downloaded version of code. Be sure to note 13th step of "First time" above. 
+3. Execute `sudo docker-compose -f docker/docker-compose.yml up -d` to create updated container.
