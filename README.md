@@ -77,7 +77,7 @@
     ```
     Select nano if a choice is asked. Add the following line :
     ```
-    */10 * * * * docker exec rss-to-activity-pub /bin/sh -c "cd /app && node queueFeeds.js" >/dev/null 2>&1
+    */1 * * * * docker exec rss-to-activity-pub /bin/sh -c "cd /app && node queueFeeds.js" >/dev/null 2>&1
     ```
     Your feeds will be updated every 10 minutes.
 13. Also it is recommended to create at the root of rss-to-activity-pub directory a file named `.dockerignore` which contains `docker/data`. Without it, your db file would be included next time you build the image with an image significally heavier for nothing (db file is mounted from docker-compose.yml).
