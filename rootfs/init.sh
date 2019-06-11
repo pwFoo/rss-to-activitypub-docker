@@ -31,4 +31,6 @@ echo "Configuration file :"
 
 cat config.json
 
+beanstalkd &
+
 node index.js

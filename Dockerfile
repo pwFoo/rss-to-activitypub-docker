@@ -3,7 +3,8 @@ FROM node:alpine
 RUN apk add --no-cache \
   python2 \
   make \
-  g++
+  g++ \
+  beanstalkd
 
 RUN mkdir /app
 
