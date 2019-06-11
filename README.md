@@ -77,7 +77,7 @@
     ```
     Select nano if a choice is asked. Add the following line :
     ```
-    */10 * * * * docker exec rss-to-activity-pub /bin/sh -c "cd /app && node updateFeeds.js" >/dev/null 2>&1
+    */10 * * * * docker exec rss-to-activity-pub /bin/sh -c "cd /app && node queueFeeds.js" >/dev/null 2>&1
     ```
     Your feeds will be updated every 10 minutes.
 13. Also it is recommended to create at the root of rss-to-activity-pub directory a file named `.dockerignore` which contains `docker/data`. Without it, your db file would be included next time you build the image with an image significally heavier for nothing (db file is mounted from docker-compose.yml).
@@ -85,5 +85,6 @@
 # Update
 
 1. Go to you rss-to-activity-pub directory and then do `git pull` for getting the new version of code.
-2. Execute `sudo docker build -f docker/Dockerfile -t rss-to-activity-pub .` to build the new image using the newly downloaded version of code. Be sure to note 13th step of "First time" above. 
+2. Then go to to the docker diretory and do the same thing : `git pull`
+2. On the root of rss-to-activity-pub directory, execute `sudo docker build -f docker/Dockerfile -t rss-to-activity-pub .` to build the new image using the newly downloaded version of code. Be sure to note 13th step of "First time" above. 
 3. Execute `sudo docker-compose -f docker/docker-compose.yml up -d` to create updated container.
